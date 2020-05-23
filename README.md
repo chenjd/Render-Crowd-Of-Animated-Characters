@@ -1,12 +1,13 @@
 # AnimMap Baker For Animated Characters 
 ----
 #### 描述 Description：
-利用GPU实现大规模动画角色的渲染。
+Using GPU to achieve large number of animated characters rendering.
+
 * anim map for vertex shader to modify the vertex position of the mesh at runtime.
 
 * use gpu instancing to reduce draw call.
 
-#### 模型资源 ResLink：
+#### Model Resource Link：
 
 [RTS Mini Legion Footman Handpainted](https://www.assetstore.unity3d.com/en/#!/content/86576)
 
@@ -23,4 +24,8 @@ animated characters without animator & skinnedmeshrender.
 #### GPU Instancing & mesh render for large number of animated characters：
 ![1372105-fa2cb8df2d12c0b3.gif](http://upload-images.jianshu.io/upload_images/1372105-310c57df8cfc83bc.gif?imageMogr2/auto-orient/strip)
 10,000 animated characters with 22 drawcalls.
+
+#### BlogPost
+
+[How To Render 10,000 Animated Characters With 20 Draw Calls In Unity](https://medium.com/@chen_jd/how-to-render-10-000-animated-characters-with-20-draw-calls-in-unity-e30a3036349a)
 
