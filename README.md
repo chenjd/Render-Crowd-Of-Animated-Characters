@@ -1,6 +1,9 @@
 # AnimMap Baker For Animated Characters 
 ----
-#### 描述 Description：
+![GitHub](https://img.shields.io/github/license/chenjd/Render-Crowd-Of-Animated-Characters)
+![](https://img.shields.io/badge/platform-win--64-brightgreen)
+![](https://img.shields.io/badge/unity-5.6%2B-brightgreen)
+#### Description：
 Using GPU to achieve large number of animated characters rendering.
 
 * anim map for vertex shader to modify the vertex position of the mesh at runtime.
