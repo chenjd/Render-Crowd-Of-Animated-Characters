@@ -141,8 +141,8 @@ public class AnimMapBaker{
             return;
         }
 
-        Animation anim = go.GetComponent<Animation>();
-        SkinnedMeshRenderer smr = go.GetComponentInChildren<SkinnedMeshRenderer>();
+        var anim = go.GetComponent<Animation>();
+        var smr = go.GetComponentInChildren<SkinnedMeshRenderer>();
 
         if(anim == null || smr == null)
         {
@@ -177,14 +177,14 @@ public class AnimMapBaker{
 
     private void BakePerAnimClip(AnimationState curAnim)
     {
-        int curClipFrame = 0;
+        var curClipFrame = 0;
         float sampleTime = 0;
         float perFrameTime = 0;
 
         curClipFrame = Mathf.ClosestPowerOfTwo((int)(curAnim.clip.frameRate * curAnim.length));
         perFrameTime = curAnim.length / curClipFrame; ;
 
-        var animMap = new Texture2D(_animData.Value.MapWidth, curClipFrame, TextureFormat.RGBAHalf, false);
+        var animMap = new Texture2D(_animData.Value.MapWidth, curClipFrame, TextureFormat.RGBAHalf, true);
         animMap.name = string.Format($"{_animData.Value.Name}_{curAnim.name}.animMap");
         _animData.Value.AnimationPlay(curAnim.name);
 
