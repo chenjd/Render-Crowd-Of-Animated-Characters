@@ -1,9 +1,11 @@
 # AnimMap Baker For Animated Characters 
-----
 ![GitHub](https://img.shields.io/github/license/chenjd/Render-Crowd-Of-Animated-Characters)
 ![](https://img.shields.io/badge/platform-win--64-brightgreen)
-![](https://img.shields.io/badge/unity-5.6%2B-brightgreen)
+![](https://img.shields.io/badge/unity-2019.4%2B-brightgreen)
+
 #### Description：
+Updated to Unity 2019 or later.
+
 Using GPU to achieve large number of animated characters rendering.
 
 * anim map for vertex shader to modify the vertex position of the mesh at runtime.
