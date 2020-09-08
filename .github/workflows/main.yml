@@ -1,4 +1,4 @@
-name: Actions 😎
+name: Build my project 😎
 
 on:
   pull_request: {}

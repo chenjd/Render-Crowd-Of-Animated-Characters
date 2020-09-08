@@ -1,4 +1,4 @@
-name: Actions 😎
+name: Request manual activation file 😎
 
 on: [push]
 
