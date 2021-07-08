@@ -1,30 +1,39 @@
 ﻿/*
  * Created by jiadong chen
- * http://www.chenjd.me
+ * http://www.jiadongchen.com
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using UnityEngine.Rendering;
 
 public class AnimMapBakerWindow : EditorWindow {
 
     private enum SaveStrategy
     {
-        AnimMap,//only anim map
-        Mat,//with shader
-        Prefab//prefab with mat
+        // Only anim map
+        AnimMap, 
+        // with shader
+        Mat, 
+        // Prefab with mat
+        Prefab 
     }
 
     #region FIELDS
 
     private static GameObject _targetGo;
     private static AnimMapBaker _baker;
-    private static string _path = "DefaultPath";
+    private static string _path = "AnimMapBaker";
     private static string _subPath = "SubPath";
-    private static SaveStrategy _stratege = SaveStrategy.AnimMap;
+    private static SaveStrategy _strategy = SaveStrategy.Prefab;
     private static Shader _animMapShader;
+    private static readonly int MainTex = Shader.PropertyToID("_MainTex");
+    private static readonly int AnimMap = Shader.PropertyToID("_AnimMap");
+    private static readonly int AnimLen = Shader.PropertyToID("_AnimLen");
+    private const string BuiltInShader = "chenjd/BuiltIn/AnimMapShader";
+    private const string URPShader = "chenjd/URP/AnimMapShader";
 
     #endregion
 
@@ -36,7 +45,8 @@ public class AnimMapBakerWindow : EditorWindow {
     {
         EditorWindow.GetWindow(typeof(AnimMapBakerWindow));
         _baker = new AnimMapBaker();
-        _animMapShader = Shader.Find("chenjd/AnimMapShader");
+        var shaderName = GraphicsSettings.renderPipelineAsset != null ? URPShader : BuiltInShader;
+        _animMapShader = Shader.Find(shaderName);
     }
 
     private void OnGUI()
@@ -47,7 +57,7 @@ public class AnimMapBakerWindow : EditorWindow {
         _path = EditorGUILayout.TextField(_path);
         _subPath = EditorGUILayout.TextField(_subPath);
 
-        _stratege = (SaveStrategy)EditorGUILayout.EnumPopup("output type:", _stratege);
+        _strategy = (SaveStrategy)EditorGUILayout.EnumPopup("output type:", _strategy);
 
 
         if (!GUILayout.Button("Bake")) return;
@@ -76,7 +86,7 @@ public class AnimMapBakerWindow : EditorWindow {
 
     private void Save(ref BakedData data)
     {
-        switch(_stratege)
+        switch(_strategy)
         {
             case SaveStrategy.AnimMap:
                 SaveAsAsset(ref data);
@@ -92,7 +102,7 @@ public class AnimMapBakerWindow : EditorWindow {
         AssetDatabase.Refresh();
     }
 
-    private Texture2D SaveAsAsset(ref BakedData data)
+    private static Texture2D SaveAsAsset(ref BakedData data)
     {
         var folderPath = CreateFolder();
         var animMap = new Texture2D(data.AnimMapWidth, data.AnimMapHeight, TextureFormat.RGBAHalf, false);
@@ -101,7 +111,7 @@ public class AnimMapBakerWindow : EditorWindow {
         return animMap;
     }
 
-    private Material SaveAsMat(ref BakedData data)
+    private static Material SaveAsMat(ref BakedData data)
     {
         if(_animMapShader == null)
         {
@@ -118,17 +128,17 @@ public class AnimMapBakerWindow : EditorWindow {
         var smr = _targetGo.GetComponentInChildren<SkinnedMeshRenderer>();
         var mat = new Material(_animMapShader);
         var animMap = SaveAsAsset(ref data);
-        mat.SetTexture("_MainTex", smr.sharedMaterial.mainTexture);
-        mat.SetTexture("_AnimMap", animMap);
-        mat.SetFloat("_AnimLen", data.AnimLen);
+        mat.SetTexture(MainTex, smr.sharedMaterial.mainTexture);
+        mat.SetTexture(AnimMap, animMap);
+        mat.SetFloat(AnimLen, data.AnimLen);
 
         var folderPath = CreateFolder();
-        AssetDatabase.CreateAsset(mat, Path.Combine(folderPath, data.Name + ".mat"));
+        AssetDatabase.CreateAsset(mat, Path.Combine(folderPath, $"{data.Name}.mat"));
 
         return mat;
     }
 
-    private void SaveAsPrefab(ref BakedData data)
+    private static void SaveAsPrefab(ref BakedData data)
     {
         var mat = SaveAsMat(ref data);
 
@@ -143,7 +153,7 @@ public class AnimMapBakerWindow : EditorWindow {
         go.AddComponent<MeshFilter>().sharedMesh = _targetGo.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh;
 
         var folderPath = CreateFolder();
-        PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(folderPath, data.Name + ".prefab")
+        PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(folderPath, $"{data.Name}.prefab")
             .Replace("\\", "/"));
     }
 

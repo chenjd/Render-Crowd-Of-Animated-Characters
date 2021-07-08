@@ -1,7 +1,6 @@
 ﻿/*
  * Created by jiadong chen
- * http://www.chenjd.me
- * 
+ * http://www.jiadongchen.com
  * 用来烘焙动作贴图。烘焙对象使用animation组件，并且在导入时设置Rig为Legacy
  */
 using System.Collections;
