@@ -18,7 +18,7 @@ happy :-).
 
 [:heart: Animation Baker and Instancing for Animated Characters on Asset Store](https://assetstore.unity.com/packages/tools/animation/animation-baker-and-instancing-for-animated-characters-183598)
 
-Recently I added support for Unity 2019, so it can be used from Unity 5.x to Unity 2019.
+Recently I added support for Unity 2021 and the Universal Render Pipeline (URP), so it can be used from Unity 5.x to Unity 2021.
 
 And I will create a video tutorial to demonstrate how to use it. If you want to know more about the implementation behind it, you can read this [article](https://medium.com/chenjd-xyz/how-to-render-10-000-animated-characters-with-20-draw-calls-in-unity-e30a3036349a) I wrote.
 
@@ -29,11 +29,15 @@ And I will create a video tutorial to demonstrate how to use it. If you want to 
 needed to render 10,000 soldiers playing attack actions in the demo scene.
 
 #### Changelog:
-• Sep 8, 2020 – CI/CD pipeline on GitHub
+• Feb, 2022 – Support Unity 2021+
 
-• Aug 29, 2020 – Support Unity 2019+
+• Jul, 2021 – Support Universal Render Pipeline (URP)
 
-• 30 Jul 2017 – Initial release
+• Sep, 2020 – CI/CD pipeline on GitHub
+
+• Aug, 2020 – Support Unity 2019+
+
+• Jul, 2017 – Initial release
 
 #### Model Resource Link：
 
