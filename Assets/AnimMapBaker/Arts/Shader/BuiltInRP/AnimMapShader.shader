@@ -1,6 +1,6 @@
 ﻿/*
 Created by jiadong chen
-http://www.jiadongchen.me
+https://jiadong-chen.medium.com/
 */
 
 Shader "chenjd/BuiltIn/AnimMapShader"
@@ -15,8 +15,8 @@ Shader "chenjd/BuiltIn/AnimMapShader"
     SubShader
     {
         Tags { "RenderType" = "Opaque" }
-        LOD 100
         Cull off
+		LOD 100
 
         Pass
         {
@@ -65,8 +65,12 @@ Shader "chenjd/BuiltIn/AnimMapShader"
                 float4 pos = tex2Dlod(_AnimMap, float4(animMap_x, animMap_y, 0, 0));
 
                 v2f o;
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.vertex = UnityObjectToClipPos(pos);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+
+				//v2f o;
+				//o.vertex = UnityObjectToClipPos(v.pos);
+				//o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
             

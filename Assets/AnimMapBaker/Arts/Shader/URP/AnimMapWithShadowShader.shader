@@ -3,7 +3,7 @@ Created by jiadong chen
 https://jiadong-chen.medium.com/
 */
 
-Shader "chenjd/BuiltIn/AnimMapWithShadowShader"
+Shader "chenjd/URP/AnimMapWithShadowShader"
 {
     Properties
     {
@@ -84,7 +84,8 @@ Shader "chenjd/BuiltIn/AnimMapWithShadowShader"
         {
 			Pass
             {
-                Tags { "RenderType" = "Opaque" "Queue" = "Geometry" }
+				Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalRenderPipeline"}
+				Tags { "LightMode"="UniversalForward" }
 				Cull off
                 CGPROGRAM
                 #pragma vertex vert
@@ -102,6 +103,7 @@ Shader "chenjd/BuiltIn/AnimMapWithShadowShader"
 			{
 				Name "ShadowCaster"
 				Tags { "LightMode" = "ShadowCaster" }
+				LOD 100
 
 				CGPROGRAM
 				#pragma vertex vert
