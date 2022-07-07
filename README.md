@@ -7,7 +7,11 @@
 #### Description：
 Using GPU to implement large-amount animation characters rendering. The animation map for vertex shader to modify the vertex position of the mesh at runtime. Useing GPU instancing to reduce draw calls. 
 
-#### Use Unity’s AR Foundation to create 10,000 toy soldiers in the real world on an Old iPhone 7.
+#### Supporting Shadows
+[![](https://i9.ytimg.com/vi/WUNq5sDMAg8/mq2.jpg?sqp=CMSGmpYG&rs=AOn4CLDPhbgagjKYE-ayuBFHznpgyUSQJQ)](http://www.youtube.com/watch?v=choBOPO1xgo "")
+
+
+#### Using Unity’s AR Foundation to create 10,000 toy soldiers in the real world on an Old iPhone 7.
 [![](http://img.youtube.com/vi/choBOPO1xgo/0.jpg)](http://www.youtube.com/watch?v=choBOPO1xgo "")
 
 
@@ -18,26 +22,26 @@ happy :-).
 
 [:heart: Animation Baker and Instancing for Animated Characters on Asset Store](https://assetstore.unity.com/packages/tools/animation/animation-baker-and-instancing-for-animated-characters-183598)
 
-Recently I added support for Unity 2021 and the Universal Render Pipeline (URP), so it can be used from Unity 5.x to Unity 2021.
+Recently I added support for Unity 2021 and the Universal Render Pipeline (URP), so it can be used from Unity 5.x to Unity 202.
 
 And I will create a video tutorial to demonstrate how to use it. If you want to know more about the implementation behind it, you can read this [article](https://medium.com/chenjd-xyz/how-to-render-10-000-animated-characters-with-20-draw-calls-in-unity-e30a3036349a) I wrote.
 
 #### Features:
-✓Using the animation map to modify the position of vertices of your characters at runtime to avoid a lot of cost of skin calculation.
 
-✓Using GPU Instancing to reduce the number of draw calls, only 20 draw calls are
+✅ Support Shadows.
+
+✅ Using the animation map to modify the position of vertices of your characters at runtime to avoid a lot of cost of skin calculation.
+
+✅ Using GPU Instancing to reduce the number of draw calls, only 20 draw calls are
 needed to render 10,000 soldiers playing attack actions in the demo scene.
 
-#### Changelog:
-• Feb, 2022 – Support Unity 2021+
+✅ Using the animation map to modify the position of vertices of your characters at runtime to avoid a lot of cost of skin calculation.
 
-• Jul, 2021 – Support Universal Render Pipeline (URP)
+✅ Using GPU Instancing to reduce the number of draw calls, only 20 draw calls are needed to render 10,000 cats playing idle actions in the demo scene.
 
-• Sep, 2020 – CI/CD pipeline on GitHub
+✅ Support AR Foundation.
 
-• Aug, 2020 – Support Unity 2019+
-
-• Jul, 2017 – Initial release
+✅ Support URP(SRP Batcher)only 7 draw calls are needed to render 10,000 cats playing idle actions in the demo scene.
 
 #### Model Resource Link：
 
