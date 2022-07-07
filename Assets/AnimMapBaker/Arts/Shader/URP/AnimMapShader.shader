@@ -1,6 +1,6 @@
 ﻿/*
 Created by jiadong chen
-http://www.jiadongchen.me
+https://jiadong-chen.medium.com/
 */
 
 Shader "chenjd/URP/AnimMapShader"

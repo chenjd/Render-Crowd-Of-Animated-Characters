@@ -1,9 +1,7 @@
 ﻿/*
  * Created by jiadong chen
- * http://www.jiadongchen.com
+ * https://jiadong-chen.medium.com/
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
@@ -15,7 +13,7 @@ public class AnimMapBakerWindow : EditorWindow {
     {
         // Only anim map
         AnimMap, 
-        // with shader
+        // With shader
         Mat, 
         // Prefab with mat
         Prefab 
@@ -23,17 +21,20 @@ public class AnimMapBakerWindow : EditorWindow {
 
     #region FIELDS
 
+    private const string BuiltInShader = "chenjd/BuiltIn/AnimMapShader";
+    private const string URPShader = "chenjd/URP/AnimMapShader";
+    private const string ShadowShader = "chenjd/BuiltIn/AnimMapWithShadowShader";
     private static GameObject _targetGo;
     private static AnimMapBaker _baker;
     private static string _path = "AnimMapBaker";
     private static string _subPath = "SubPath";
     private static SaveStrategy _strategy = SaveStrategy.Prefab;
     private static Shader _animMapShader;
+    private static Shader _prevAnimMapShader;
     private static readonly int MainTex = Shader.PropertyToID("_MainTex");
     private static readonly int AnimMap = Shader.PropertyToID("_AnimMap");
     private static readonly int AnimLen = Shader.PropertyToID("_AnimLen");
-    private const string BuiltInShader = "chenjd/BuiltIn/AnimMapShader";
-    private const string URPShader = "chenjd/URP/AnimMapShader";
+    private bool _isShadowEnabled = false;
 
     #endregion
 
@@ -53,14 +54,32 @@ public class AnimMapBakerWindow : EditorWindow {
     {
         _targetGo = (GameObject)EditorGUILayout.ObjectField(_targetGo, typeof(GameObject), true);
         _subPath = _targetGo == null ? _subPath : _targetGo.name;
-        EditorGUILayout.LabelField(string.Format($"output path:{Path.Combine(_path, _subPath)}"));
+        EditorGUILayout.LabelField(string.Format($"Output Path: {Path.Combine(_path, _subPath)}"));
         _path = EditorGUILayout.TextField(_path);
         _subPath = EditorGUILayout.TextField(_subPath);
 
-        _strategy = (SaveStrategy)EditorGUILayout.EnumPopup("output type:", _strategy);
+        _strategy = (SaveStrategy)EditorGUILayout.EnumPopup("Output Type:", _strategy);
 
+
+        _isShadowEnabled = EditorGUILayout.Toggle("Enable Shadow", _isShadowEnabled);
+
+        if(_isShadowEnabled)
+        {
+            var style = new GUIStyle(EditorStyles.label);
+            style.normal.textColor = Color.yellow;
+
+            EditorGUILayout.LabelField("Warning: Enabling shadows will cause additional draw calls to draw shadows.", style);
+
+            _prevAnimMapShader = _animMapShader;
+            _animMapShader = Shader.Find(ShadowShader);
+        }
+        else if(_prevAnimMapShader != null)
+        {
+            _animMapShader = _prevAnimMapShader;
+        }
 
         if (!GUILayout.Button("Bake")) return;
+
         if(_targetGo == null)
         {
             EditorUtility.DisplayDialog("err", "targetGo is null！", "OK");
