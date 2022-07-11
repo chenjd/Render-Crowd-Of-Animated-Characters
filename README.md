@@ -8,7 +8,7 @@
 Using GPU to implement large-amount animation characters rendering. The animation map for vertex shader to modify the vertex position of the mesh at runtime. Useing GPU instancing to reduce draw calls. 
 
 #### Supporting Shadows
-[![](https://i9.ytimg.com/vi/WUNq5sDMAg8/mq2.jpg?sqp=CMSGmpYG&rs=AOn4CLDPhbgagjKYE-ayuBFHznpgyUSQJQ)](https://www.youtube.com/watch?v=WUNq5sDMAg8 "")
+[![](https://assetstorev1-prd-cdn.unity3d.com/package-screenshot/9e708bba-1a7d-4df6-8c1d-f209a8052f84.webp)](https://www.youtube.com/watch?v=WUNq5sDMAg8 "")
 
 
 #### Using Unity’s AR Foundation to create 10,000 toy soldiers in the real world on an Old iPhone 7.
