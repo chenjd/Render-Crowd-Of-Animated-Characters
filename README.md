@@ -1,8 +1,11 @@
 # AnimMap Baker For Animated Characters 
 ![GitHub](https://img.shields.io/github/license/chenjd/Render-Crowd-Of-Animated-Characters)
 ![](https://img.shields.io/badge/platform-win--64-brightgreen)
-![](https://img.shields.io/badge/unity-2019.4%2B-brightgreen)
-![Build my project](https://github.com/chenjd/Render-Crowd-Of-Animated-Characters/workflows/Build%20my%20project%20%F0%9F%98%8E/badge.svg)
+![](https://img.shields.io/badge/unity-2022.2%2B-brightgreen)
+
+#### BlogPost
+
+[How To Render 10,000 Animated Characters With 20 Draw Calls In Unity](https://medium.com/@chen_jd/how-to-render-10-000-animated-characters-with-20-draw-calls-in-unity-e30a3036349a)
 
 #### Description：
 Using GPU to implement large-amount animation characters rendering. The animation map for vertex shader to modify the vertex position of the mesh at runtime. Useing GPU instancing to reduce draw calls. 
@@ -22,11 +25,12 @@ happy :-).
 
 [:heart: Animation Baker and Instancing for Animated Characters on Asset Store](https://assetstore.unity.com/packages/tools/animation/animation-baker-and-instancing-for-animated-characters-183598)
 
-Recently I added support for Unity 2020 and the Universal Render Pipeline (URP), so it can be used from Unity 5.x to Unity 2020.
+Recently I added support for Unity 2022 and the Universal Render Pipeline (URP), so it can be used from Unity 5.x to Unity 2022.
 
 And I will create a video tutorial to demonstrate how to use it. If you want to know more about the implementation behind it, you can read this [article](https://medium.com/chenjd-xyz/how-to-render-10-000-animated-characters-with-20-draw-calls-in-unity-e30a3036349a) I wrote.
 
 #### Features:
+✅ Support Unity 2022.
 
 ✅ Support Shadows.
 
@@ -61,7 +65,5 @@ animated characters without animator & skinnedmeshrender.
 ![1372105-fa2cb8df2d12c0b3.gif](http://upload-images.jianshu.io/upload_images/1372105-310c57df8cfc83bc.gif?imageMogr2/auto-orient/strip)
 10,000 animated characters with 22 drawcalls.
 
-#### BlogPost
 
-[How To Render 10,000 Animated Characters With 20 Draw Calls In Unity](https://medium.com/@chen_jd/how-to-render-10-000-animated-characters-with-20-draw-calls-in-unity-e30a3036349a)
 
