@@ -1,7 +1,7 @@
 # AnimMap Baker For Animated Characters 
 ![GitHub](https://img.shields.io/github/license/chenjd/Render-Crowd-Of-Animated-Characters)
 ![](https://img.shields.io/badge/platform-win--64-brightgreen)
-![](https://img.shields.io/badge/unity-2022.2%2B-brightgreen)
+![](https://img.shields.io/badge/unity-2023.2%2B-brightgreen)
 
 #### BlogPost
 
@@ -25,12 +25,12 @@ happy :-).
 
 [:heart: Animation Baker and Instancing for Animated Characters on Asset Store](https://assetstore.unity.com/packages/tools/animation/animation-baker-and-instancing-for-animated-characters-183598)
 
-Recently I added support for Unity 2022 and the Universal Render Pipeline (URP), so it can be used from Unity 5.x to Unity 2022.
+Recently I added support for Unity 2023 and the Universal Render Pipeline (URP), so it can be used from Unity 5.X to Unity 2023.
 
 And I will create a video tutorial to demonstrate how to use it. If you want to know more about the implementation behind it, you can read this [article](https://medium.com/chenjd-xyz/how-to-render-10-000-animated-characters-with-20-draw-calls-in-unity-e30a3036349a) I wrote.
 
 #### Features:
-✅ Support Unity 2022.
+✅ Support Unity 2023.
 
 ✅ Support Shadows.
 
