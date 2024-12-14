@@ -98,10 +98,10 @@ public class AnimMapBakerWindow : EditorWindow
 
         var prevGuiEnabled = GUI.enabled;
         GUI.enabled = canProceed;
-
-        if (!GUILayout.Button("Bake")) return;
-
+        var requestedBake = GUILayout.Button("Bake");
         GUI.enabled = prevGuiEnabled;
+
+        if (!requestedBake) return;
 
         if(_targetGo == null)
         {
