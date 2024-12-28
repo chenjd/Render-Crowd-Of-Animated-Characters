@@ -2,13 +2,15 @@
  * Created by jiadong chen
  * https://jiadong-chen.medium.com/
  */
+
+using System;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
 using UnityEngine.Rendering;
 
-public class AnimMapBakerWindow : EditorWindow {
-
+public class AnimMapBakerWindow : EditorWindow
+{
     private enum SaveStrategy
     {
         // Only anim map
@@ -24,16 +26,19 @@ public class AnimMapBakerWindow : EditorWindow {
     private const string BuiltInShader = "chenjd/BuiltIn/AnimMapShader";
     private const string URPShader = "chenjd/URP/AnimMapShader";
     private const string ShadowShader = "chenjd/BuiltIn/AnimMapWithShadowShader";
-    private static GameObject _targetGo;
-    private static AnimMapBaker _baker;
-    private static string _path = "AnimMapBaker";
-    private static string _subPath = "SubPath";
-    private static SaveStrategy _strategy = SaveStrategy.Prefab;
-    private static Shader _animMapShader;
-    private static Shader _prevAnimMapShader;
+
     private static readonly int MainTex = Shader.PropertyToID("_MainTex");
     private static readonly int AnimMap = Shader.PropertyToID("_AnimMap");
     private static readonly int AnimLen = Shader.PropertyToID("_AnimLen");
+
+    private GameObject _targetGo;
+    private AnimMapBaker _baker;
+    private string _path = "AnimMapBaker";
+    private string _subPath = "SubPath";
+
+    private SaveStrategy _strategy = SaveStrategy.Prefab;
+    private Shader _animMapShader;
+    private Shader _prevAnimMapShader;
     private bool _isShadowEnabled = false;
 
     #endregion
@@ -44,22 +49,35 @@ public class AnimMapBakerWindow : EditorWindow {
     [MenuItem("Window/AnimMapBaker")]
     public static void ShowWindow()
     {
-        EditorWindow.GetWindow(typeof(AnimMapBakerWindow));
-        _baker = new AnimMapBaker();
+        var window = GetWindow<AnimMapBakerWindow>();
+
+        window._baker = new AnimMapBaker();
         var shaderName = GraphicsSettings.renderPipelineAsset != null ? URPShader : BuiltInShader;
-        _animMapShader = Shader.Find(shaderName);
+        window._animMapShader = Shader.Find(shaderName);
     }
 
     private void OnGUI()
     {
         _targetGo = (GameObject)EditorGUILayout.ObjectField(_targetGo, typeof(GameObject), true);
         _subPath = _targetGo == null ? _subPath : _targetGo.name;
-        EditorGUILayout.LabelField(string.Format($"Output Path: {Path.Combine(_path, _subPath)}"));
+
+        var resultPath = "Wrong path entered!";
+        var canProceed = true;
+
+        try
+        {
+            resultPath = Path.Combine(_path, _subPath);
+        }
+        catch (Exception e)
+        {
+            canProceed = false;
+        }
+
+        EditorGUILayout.LabelField(string.Format($"Output Path: {resultPath}"));
         _path = EditorGUILayout.TextField(_path);
         _subPath = EditorGUILayout.TextField(_subPath);
 
         _strategy = (SaveStrategy)EditorGUILayout.EnumPopup("Output Type:", _strategy);
-
 
         _isShadowEnabled = EditorGUILayout.Toggle("Enable Shadow", _isShadowEnabled);
 
@@ -78,7 +96,12 @@ public class AnimMapBakerWindow : EditorWindow {
             _animMapShader = _prevAnimMapShader;
         }
 
-        if (!GUILayout.Button("Bake")) return;
+        var prevGuiEnabled = GUI.enabled;
+        GUI.enabled = canProceed;
+        var requestedBake = GUILayout.Button("Bake");
+        GUI.enabled = prevGuiEnabled;
+
+        if (!requestedBake) return;
 
         if(_targetGo == null)
         {
@@ -95,7 +118,12 @@ public class AnimMapBakerWindow : EditorWindow {
 
         var list = _baker.Bake();
 
-        if (list == null) return;
+        if (list == null || list.Count == 0)
+        {
+            EditorUtility.DisplayDialog("err", "No baked data was generated. Possible, selected wrong asset.\nYou need to select prefab with Animation component and Animations list filled with animations.", "OK");
+            return;
+        }
+
         foreach (var t in list)
         {
             var data = t;
@@ -121,7 +149,7 @@ public class AnimMapBakerWindow : EditorWindow {
         AssetDatabase.Refresh();
     }
 
-    private static Texture2D SaveAsAsset(ref BakedData data)
+    private Texture2D SaveAsAsset(ref BakedData data)
     {
         var folderPath = CreateFolder();
         var animMap = new Texture2D(data.AnimMapWidth, data.AnimMapHeight, TextureFormat.RGBAHalf, false);
@@ -130,7 +158,7 @@ public class AnimMapBakerWindow : EditorWindow {
         return animMap;
     }
 
-    private static Material SaveAsMat(ref BakedData data)
+    private Material SaveAsMat(ref BakedData data)
     {
         if(_animMapShader == null)
         {
@@ -157,7 +185,7 @@ public class AnimMapBakerWindow : EditorWindow {
         return mat;
     }
 
-    private static void SaveAsPrefab(ref BakedData data)
+    private void SaveAsPrefab(ref BakedData data)
     {
         var mat = SaveAsMat(ref data);
 
@@ -176,9 +204,9 @@ public class AnimMapBakerWindow : EditorWindow {
             .Replace("\\", "/"));
     }
 
-    private static string CreateFolder()
+    private string CreateFolder()
     {
-        var folderPath = Path.Combine("Assets/" + _path,  _subPath);
+        var folderPath = Path.Combine("Assets/" + _path, _subPath);
         if (!AssetDatabase.IsValidFolder(folderPath))
         {
             AssetDatabase.CreateFolder("Assets/" + _path, _subPath);
@@ -187,6 +215,5 @@ public class AnimMapBakerWindow : EditorWindow {
     }
 
     #endregion
-
 
 }
